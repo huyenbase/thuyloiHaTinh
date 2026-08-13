@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans,"Anthropic Sans",sans-serif);background:transparent;padding:14px 12px 24px;font-size:13px}
+h2{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.desc{font-size:11px;color:var(--color-text-secondary);margin-bottom:16px}
+
+/* PHASE TABS */
+.phases{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:0;border-radius:10px 10px 0 0;overflow:hidden;border:1px solid var(--color-border-secondary);border-bottom:none}
+.phase-tab{padding:10px 12px;cursor:pointer;text-align:center;transition:background .15s}
+.phase-tab .ph-label{font-size:11px;font-weight:500;letter-spacing:.03em;opacity:.7}
+.phase-tab .ph-name{font-size:13px;font-weight:500;margin-top:2px}
+.phase-tab.before{background:#E6F1FB;color:#0C447C}
+.phase-tab.during{background:#EAF3DE;color:#27500A}
+.phase-tab.after{background:#FAEEDA;color:#633806}
+.phase-tab.before .ph-label{color:#185FA5}
+.phase-tab.during .ph-label{color:#3B6D11}
+.phase-tab.after .ph-label{color:#854F0B}
+
+/* CONTENT PANEL */
+.panel{border:1px solid var(--color-border-secondary);border-radius:0 0 10px 10px;padding:0;overflow:hidden}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse}
+thead tr{border-bottom:2px solid var(--color-border-secondary)}
+thead th{padding:9px 12px;font-size:11px;font-weight:500;color:var(--color-text-secondary);text-align:left;background:var(--color-background-secondary)}
+thead th:first-child{width:22%}
+thead th:nth-child(2){width:36%}
+thead th:nth-child(3){width:42%}
+tbody tr{border-bottom:1px solid var(--color-border-tertiary);transition:background .1s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--color-background-secondary)}
+td{padding:10px 12px;vertical-align:top}
+td:first-child{font-size:12px;font-weight:500;color:var(--color-text-primary);line-height:1.4}
+td:nth-child(2){font-size:12px;color:var(--color-text-secondary);line-height:1.6}
+td:nth-child(3){font-size:11px;color:var(--color-text-secondary);line-height:1.7}
+
+/* TAGS */
+.tag{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:500;margin:1px 2px 1px 0;white-space:nowrap}
+.tag-blue{background:#E6F1FB;color:#185FA5;border:1px solid #B5D4F4}
+.tag-amber{background:#FAEEDA;color:#854F0B;border:1px solid #FAC775}
+.tag-teal{background:#E1F5EE;color:#0F6E56;border:1px solid #9FE1CB}
+.tag-green{background:#EAF3DE;color:#3B6D11;border:1px solid #C0DD97}
+.tag-coral{background:#FAECE7;color:#993C1D;border:1px solid #F5C4B3}
+.tag-gray{background:var(--color-background-secondary);color:var(--color-text-secondary);border:1px solid var(--color-border-secondary)}
+
+/* PHASE HEADER IN TABLE */
+.phase-head{padding:7px 12px;font-size:11px;font-weight:500;letter-spacing:.04em}
+.ph-before{background:#E6F1FB;color:#185FA5}
+.ph-during{background:#EAF3DE;color:#3B6D11}
+.ph-after{background:#FAEEDA;color:#854F0B}
+
+/* SUMMARY BAR */
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+.sum-card{border-radius:8px;padding:10px 12px;border:1px solid var(--color-border-secondary)}
+.sum-card .s-num{font-size:22px;font-weight:500;color:var(--color-text-primary);line-height:1}
+.sum-card .s-lbl{font-size:11px;color:var(--color-text-secondary);margin-top:4px;line-height:1.4}
+.sum-card.highlight{background:#E6F1FB;border-color:#185FA5}
+.sum-card.highlight .s-num{color:#185FA5}
+
+@media(prefers-color-scheme:dark){
+.phase-tab.before{background:#0c2f4f;color:#B5D4F4}
+.phase-tab.during{background:#173404;color:#C0DD97}
+.phase-tab.after{background:#412402;color:#FAC775}
+.tag-blue{background:#0c2f4f;color:#85B7EB;border-color:#185FA5}
+.tag-amber{background:#412402;color:#FAC775;border-color:#BA7517}
+.tag-teal{background:#04342C;color:#5DCAA5;border-color:#1D9E75}
+.tag-green{background:#173404;color:#97C459;border-color:#3B6D11}
+.tag-coral{background:#4A1B0C;color:#F0997B;border-color:#993C1D}
+.ph-before{background:#0c2f4f;color:#85B7EB}
+.ph-during{background:#173404;color:#97C459}
+.ph-after{background:#412402;color:#EF9F27}
+}
+</style>
+</head>
+<body>
+
+<h2>Vòng đời dự án sửa chữa/nâng cấp công trình thủy lợi</h2>
+<p class="desc">Quy trình từ trước → trong → sau dự án · Hồ sơ cần lưu trữ theo từng giai đoạn (theo Luật Thủy lợi 2017 & quy định đầu tư công)</p>
+
+<div class="phases">
+  <div class="phase-tab before"><div class="ph-label">GIAI ĐOẠN 1</div><div class="ph-name">📋 Trước dự án</div></div>
+  <div class="phase-tab during"><div class="ph-label">GIAI ĐOẠN 2</div><div class="ph-name">🏗️ Trong dự án</div></div>
+  <div class="phase-tab after"><div class="ph-label">GIAI ĐOẠN 3</div><div class="ph-name">✅ Sau dự án</div></div>
+</div>
+
+<div class="panel">
+<table>
+  <thead>
+    <tr>
+      <th>Quy trình</th>
+      <th>Nội dung công việc</th>
+      <th>Hồ sơ cần lưu trữ</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- BEFORE -->
+    <tr><td colspan="3" class="phase-head ph-before">▶ GIAI ĐOẠN 1 — TRƯỚC DỰ ÁN (Chuẩn bị & phê duyệt)</td></tr>
+
+    <tr>
+      <td>Kiểm tra hiện trạng công trình</td>
+      <td>Khảo sát thực địa hồ đập, kênh mương, trạm bơm; đánh giá mức độ hư hỏng, xuống cấp; lập biên bản hiện trạng</td>
+      <td>
+        <span class="tag tag-teal">Biên bản kiểm tra hiện trạng</span>
+        <span class="tag tag-teal">Biên bản khảo sát thực địa</span>
+        <span class="tag tag-amber">Ảnh chụp hiện trạng công trình</span>
+        <span class="tag tag-gray">Số liệu quan trắc, đo đạc</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Lập đề xuất / chủ trương đầu tư</td>
+      <td>Lập tờ trình đề xuất sửa chữa, xác định nguồn vốn (ngân sách tỉnh/TW/WB); trình UBND tỉnh hoặc Sở NN&PTNT phê duyệt chủ trương</td>
+      <td>
+        <span class="tag tag-blue">Tờ trình đề xuất đầu tư</span>
+        <span class="tag tag-blue">Quyết định phê duyệt chủ trương</span>
+        <span class="tag tag-amber">Báo cáo đánh giá sự cần thiết</span>
+        <span class="tag tag-gray">Văn bản chấp thuận nguồn vốn</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Lập Báo cáo kinh tế kỹ thuật / BCNCTKT</td>
+      <td>Thuê đơn vị tư vấn khảo sát, thiết kế sơ bộ; lập dự toán; trình thẩm định và phê duyệt</td>
+      <td>
+        <span class="tag tag-coral">Báo cáo NCKT / BCKTKT</span>
+        <span class="tag tag-coral">Hồ sơ khảo sát địa hình, địa chất</span>
+        <span class="tag tag-blue">QĐ phê duyệt dự án / dự toán</span>
+        <span class="tag tag-amber">Kết quả thẩm định thiết kế</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Thiết kế kỹ thuật & bản vẽ thi công</td>
+      <td>Tư vấn lập bản vẽ thiết kế chi tiết, bản vẽ thi công; thẩm tra, phê duyệt thiết kế</td>
+      <td>
+        <span class="tag tag-coral">Bản vẽ thiết kế kỹ thuật</span>
+        <span class="tag tag-coral">Bản vẽ thi công (as-designed)</span>
+        <span class="tag tag-blue">QĐ phê duyệt thiết kế – dự toán</span>
+        <span class="tag tag-amber">Thuyết minh thiết kế</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Đấu thầu lựa chọn nhà thầu</td>
+      <td>Lập hồ sơ mời thầu, tổ chức đấu thầu, thẩm định, phê duyệt kết quả; ký hợp đồng thi công</td>
+      <td>
+        <span class="tag tag-blue">Kế hoạch lựa chọn nhà thầu</span>
+        <span class="tag tag-blue">Hồ sơ mời thầu / HSYC</span>
+        <span class="tag tag-blue">QĐ phê duyệt kết quả đấu thầu</span>
+        <span class="tag tag-green">Hợp đồng thi công xây lắp</span>
+        <span class="tag tag-green">Hợp đồng tư vấn giám sát</span>
+      </td>
+    </tr>
+
+    <!-- DURING -->
+    <tr><td colspan="3" class="phase-head ph-during">▶ GIAI ĐOẠN 2 — TRONG DỰ ÁN (Thi công & giám sát)</td></tr>
+
+    <tr>
+      <td>Khởi công & tổ chức thi công</td>
+      <td>Ban hành lệnh khởi công; nhà thầu triển khai; lập tiến độ chi tiết; phân công cán bộ giám sát thường trú</td>
+      <td>
+        <span class="tag tag-blue">Lệnh khởi công</span>
+        <span class="tag tag-amber">Tiến độ thi công chi tiết</span>
+        <span class="tag tag-gray">Nhật ký thi công (hàng ngày)</span>
+        <span class="tag tag-teal">Biên bản giao nhận mặt bằng</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Giám sát thi công & nghiệm thu từng phần</td>
+      <td>Giám sát tư vấn + giám sát chủ đầu tư kiểm tra chất lượng; nghiệm thu hạng mục, nghiệm thu vật liệu, thí nghiệm mẫu</td>
+      <td>
+        <span class="tag tag-teal">Biên bản nghiệm thu từng phần</span>
+        <span class="tag tag-teal">Biên bản nghiệm thu vật liệu</span>
+        <span class="tag tag-amber">Kết quả thí nghiệm, kiểm định</span>
+        <span class="tag tag-gray">Báo cáo giám sát định kỳ</span>
+        <span class="tag tag-coral">Bản vẽ hoàn công sơ bộ</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Quản lý khối lượng & thanh toán</td>
+      <td>Xác nhận khối lượng thực hiện; lập hồ sơ thanh toán tạm ứng, thanh toán theo giai đoạn; kiểm soát dự toán</td>
+      <td>
+        <span class="tag tag-green">Bảng xác nhận khối lượng</span>
+        <span class="tag tag-green">Hồ sơ thanh toán tạm ứng</span>
+        <span class="tag tag-green">Hồ sơ thanh toán giai đoạn</span>
+        <span class="tag tag-amber">Biên bản điều chỉnh khối lượng</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Xử lý phát sinh & điều chỉnh</td>
+      <td>Ghi nhận phát sinh ngoài hợp đồng; họp xử lý kỹ thuật; trình duyệt điều chỉnh thiết kế, bổ sung dự toán nếu cần</td>
+      <td>
+        <span class="tag tag-blue">Biên bản làm việc xử lý phát sinh</span>
+        <span class="tag tag-blue">Văn bản điều chỉnh thiết kế</span>
+        <span class="tag tag-blue">QĐ điều chỉnh dự án (nếu có)</span>
+        <span class="tag tag-gray">Biên bản họp công trường</span>
+      </td>
+    </tr>
+
+    <!-- AFTER -->
+    <tr><td colspan="3" class="phase-head ph-after">▶ GIAI ĐOẠN 3 — SAU DỰ ÁN (Nghiệm thu & bàn giao)</td></tr>
+
+    <tr>
+      <td>Nghiệm thu hoàn thành công trình</td>
+      <td>Tổ chức nghiệm thu tổng thể; kiểm tra an toàn công trình; lập biên bản nghiệm thu hoàn thành đưa vào sử dụng</td>
+      <td>
+        <span class="tag tag-teal">Biên bản nghiệm thu hoàn thành</span>
+        <span class="tag tag-teal">Biên bản bàn giao công trình</span>
+        <span class="tag tag-coral">Bản vẽ hoàn công (as-built)</span>
+        <span class="tag tag-amber">Hồ sơ kiểm định an toàn đập</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Quyết toán vốn đầu tư</td>
+      <td>Tổng hợp chi phí thực tế; lập hồ sơ quyết toán; kiểm toán nhà nước (nếu có); phê duyệt quyết toán</td>
+      <td>
+        <span class="tag tag-green">Hồ sơ quyết toán hoàn công</span>
+        <span class="tag tag-green">Bảng tổng hợp chi phí thực tế</span>
+        <span class="tag tag-blue">QĐ phê duyệt quyết toán</span>
+        <span class="tag tag-amber">Kết quả kiểm toán (nếu có)</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Lưu trữ hồ sơ công trình</td>
+      <td>Đóng gói toàn bộ hồ sơ theo quy định; lưu trữ tại công ty + nộp lưu trữ nhà nước; cập nhật lý lịch công trình</td>
+      <td>
+        <span class="tag tag-coral">Lý lịch công trình (cập nhật)</span>
+        <span class="tag tag-coral">Toàn bộ bản vẽ hoàn công</span>
+        <span class="tag tag-gray">Hồ sơ hoàn công đóng bộ</span>
+        <span class="tag tag-gray">Hồ sơ máy móc thiết bị lắp đặt</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Bảo hành & theo dõi sau thi công</td>
+      <td>Theo dõi bảo hành theo hợp đồng (thường 12–24 tháng); ghi nhận lỗi hỏng; yêu cầu nhà thầu khắc phục; kiểm tra định kỳ</td>
+      <td>
+        <span class="tag tag-green">Biên bản bảo hành công trình</span>
+        <span class="tag tag-green">Biên bản kiểm tra sau bảo hành</span>
+        <span class="tag tag-amber">Phiếu yêu cầu khắc phục sự cố</span>
+        <span class="tag tag-gray">Nhật ký theo dõi bảo hành</span>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary">
+  <div class="sum-card highlight">
+    <div class="s-num">3</div>
+    <div class="s-lbl">giai đoạn chính trong vòng đời dự án</div>
+  </div>
+  <div class="sum-card">
+    <div class="s-num">13</div>
+    <div class="s-lbl">nhóm quy trình cần quản lý</div>
+  </div>
+  <div class="sum-card">
+    <div class="s-num">40+</div>
+    <div class="s-lbl">loại hồ sơ cần số hoá & lưu trữ</div>
+  </div>
+  <div class="sum-card">
+    <div class="s-num">125</div>
+    <div class="s-lbl">công trình × nhiều dự án song song</div>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div style="margin-top:12px;border:1px solid var(--color-border-tertiary);border-radius:8px;padding:10px 14px">
+  <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:7px">Phân loại hồ sơ theo màu</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px">
+    <span class="tag tag-blue">Văn bản hành chính / quyết định</span>
+    <span class="tag tag-coral">Bản vẽ kỹ thuật / thiết kế</span>
+    <span class="tag tag-green">Hồ sơ tài chính / hợp đồng</span>
+    <span class="tag tag-teal">Biên bản nghiệm thu / kiểm tra</span>
+    <span class="tag tag-amber">Báo cáo / đánh giá kỹ thuật</span>
+    <span class="tag tag-gray">Hồ sơ vận hành / nhật ký</span>
+  </div>
+</div>
+
+</body>
+</html>
